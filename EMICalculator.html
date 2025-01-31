@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMI Calculator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f2f2f2;
+        }
+        .container {
+            max-width: 400px;
+            margin: 40px auto;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>EMI Calculator</h2>
+        <form id="emi-form">
+            <div class="form-group">
+                <label for="loan-amount">Loan Amount</label>
+                <input type="number" class="form-control" id="loan-amount" placeholder="Enter loan amount">
+            </div>
+            <div class="form-group">
+                <label for="interest-rate">Interest Rate (%)</label>
+                <input type="number" class="form-control" id="interest-rate" placeholder="Enter interest rate">
+            </div>
+            <div class="form-group">
+                <label for="tenure">Tenure (Years)</label>
+                <input type="number" class="form-control" id="tenure" placeholder="Enter tenure">
+            </div>
+            <button type="submit" class="btn btn-primary">Calculate EMI</button>
+        </form>
+        <p id="emi-result"></p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#emi-form').submit(function(e) {
+                e.preventDefault();
+                var loanAmount = parseFloat($('#loan-amount').val());
+                var interestRate = parseFloat($('#interest-rate').val()) / 100 / 12;
+                var tenure = parseFloat($('#tenure').val()) * 12;
+                var emi = loanAmount * interestRate * Math.pow(1 + interestRate, tenure) / (Math.pow(1 + interestRate, tenure) - 1);
+                $('#emi-result').text('EMI: ₹' + emi.toFixed(2));
+            });
+        });
+    </script>
+</body>
+</html>
